@@ -87,4 +87,32 @@ void InsereSolicitacao(Lista*L, int cod, char codequip[], char name[], int prior
     L->inicio = auxInsereSolicitacao(L->inicio, cod, codequip, name, prior, per);
 }
 
+No * auxRemoveSolicitacao(No*apag, int cod)
+{
+    No*aux = NULL;
+    No*aux1 = apag;
+
+     while((aux1!=NULL)&&(aux1->codigo < cod))
+    {
+        aux = aux1;
+        aux1 = aux1->prox;
+    }
+    if(aux == NULL)
+    {
+        aux1 = apag;
+        apag = apag->prox;
+        free(aux1);
+        return apag;
+    }
+    aux->prox = aux1->prox;
+    free(aux1);
+    return apag;
+
+}
+
+void RemoveSolicitacao(Lista*L, int cod)
+{
+    L->inicio = auxRemoveSolicitacao(L->inicio, cod);
+}
+
 #endif
