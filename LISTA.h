@@ -114,5 +114,24 @@ void RemoveSolicitacao(Lista*L, int cod)
 {
     L->inicio = auxRemoveSolicitacao(L->inicio, cod);
 }
+void imprimeFila(Fila* f)
+{
+    No *aux;
+    printf("\n\t\t");
+    
+    for (aux = f->ini; aux!=NULL; aux = aux->prox){
+        printf("%d",aux->prioridade);
+    }
+    printf("\n");
+}
+/*int codigo;
+    char codigo_equipamento[6];
+    char nome[20];
+    int prioridade;
+    int periodo;
+    
+    Colocar as informações pra imprimir.
+    */
+
 
 #endif
