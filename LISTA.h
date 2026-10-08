@@ -132,6 +132,47 @@ void imprimeFila(Fila* f)
     
     Colocar as informações pra imprimir.
     */
+void imprimeSolicitacao(Lista *L, int codigo)
+{
+
+    No *aux = L->inicio;
+
+    aux = BuscaSolicitacao(aux, codigo);
+        if(aux == NULL)
+        {
+            printf("Solicitacao nao encontrada.\n");
+        }
+        else
+        {
+            printf("Codigo: %i/n", aux->codigo);
+            printf("Equipamento: %c/n", aux->codigo_equipamento);
+            printf("Nome: %s/n", aux->nome);
+            printf("Prioridade: %i/n", aux->prioridade);
+            printf("Periodo: %i/n", aux->periodo);
+
+        }
+
+}
+
+void alteraprioridade(Lista *L, int codigo)
+{
+    int prioridade;
+    int perido;
+
+    //Verificacao de prioridade e periodo
+
+    aux = BuscaSolicitacao(aux, codigo);
+        if(aux == NULL)
+        {
+            printf("Solicitacao nao encontrada.\n");
+        }
+        else
+        {
+            aux->prioridade=prioridade;
+            aux->periodo=periodo;
+
+        }
+}
 
 
 #endif
