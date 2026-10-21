@@ -1,9 +1,5 @@
-#ifndef LISTA_H
-#define LISTA_H
-
-#include<stdio.h>
-#include<stdlib.h>
-#include <string.h>
+#ifndef BibliotecaP1_H_INCLUDED
+#define BibliotecaP1_H_INCLUDED
 
 typedef struct no
 {
@@ -114,12 +110,13 @@ void RemoveSolicitacao(Lista*L, int cod)
 {
     L->inicio = auxRemoveSolicitacao(L->inicio, cod);
 }
-void imprimeFila(Fila* f)
+void imprimeLista(Lista* L)
 {
     No *aux;
     printf("\n\t\t");
-    
-    for (aux = f->ini; aux!=NULL; aux = aux->prox){
+
+    for (aux = L->inicio; aux!=NULL; aux = aux->prox){
+        printf("%d",aux->codigo);
         printf("%d",aux->prioridade);
     }
     printf("\n");
@@ -129,7 +126,7 @@ void imprimeFila(Fila* f)
     char nome[20];
     int prioridade;
     int periodo;
-    
+
     Colocar as informações pra imprimir.
     */
 void imprimeSolicitacao(Lista *L, int codigo)
@@ -161,7 +158,7 @@ void alteraprioridade(Lista *L, int codigo)
 
     //Verificacao de prioridade e periodo
 
-    aux = BuscaSolicitacao(aux, codigo);
+    No *aux = BuscaSolicitacao(aux, codigo);
         if(aux == NULL)
         {
             printf("Solicitacao nao encontrada.\n");
@@ -169,10 +166,8 @@ void alteraprioridade(Lista *L, int codigo)
         else
         {
             aux->prioridade=prioridade;
-            aux->periodo=periodo;
+            //aux->periodo=periodo;
 
         }
 }
-
-
-#endif
+#endif // BibliotecaP1_H_INCLUDED
