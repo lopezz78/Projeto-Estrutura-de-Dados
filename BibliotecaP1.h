@@ -120,26 +120,37 @@ void imprimeLista(Lista* L)
 {
     No *aux;
     printf("\n\t\t");
+    int equipa=1;
 
     for (aux = L->inicio; aux!=NULL; aux = aux->prox){
-        printf("%d",aux->codigo);
-        printf("%d",aux->prioridade);
+        printf("\n\t\t");
+        printf("Equipamento %d:",equipa);
+        printf("\n");
+        printf("Nome : %s",aux->nome);
+        printf("codigo: %d",aux->codigo);
+        printf("\n");
+        printf("codigo_equipamento: %s",aux->codigo_equipamento);
+        printf("\n");
+        printf("prioridade: %d",aux->prioridade);
+        printf("\n");
+        printf("periodo: %d",aux->periodo);
+        printf("\n");
+        printf("\n");
+        printf("\n");
+        equipa++;
+
+
     }
     printf("\n");
 }
-int codigo;
-    char codigo_equipamento[6];
-    char nome[20];
-    int prioridade;
-    int periodo;
 
 
 void imprimeSolicitacao(Lista *L, int codigo)
 {
 
-    No *aux = L->inicio;
+    No *aux;
 
-    aux = BuscaSolicitacao(aux, codigo);
+    aux = BuscaSolicitacao(L, codigo);
         if(aux == NULL)
         {
             printf("Solicitacao nao encontrada.\n");
@@ -163,7 +174,7 @@ void alteraprioridade(Lista *L, int codigo)
 
     //Verificacao de prioridade e periodo
 
-    No *aux = BuscaSolicitacao(aux, codigo);
+    No *aux = BuscaSolicitacao(L, codigo);
         if(aux == NULL)
         {
             printf("Solicitacao nao encontrada.\n");
