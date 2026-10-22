@@ -210,7 +210,17 @@ No * auxOrdenaPrioridade(No*antigo, No*info)
     novo = info;
     novo->prox = NULL;
 
-    while((aux1!=NULL)&&(aux1->prioridade < novo->prioridade)&&(aux1->periodo < novo->periodo)&&(aux1->codigo < novo->codigo))
+    while((aux1!=NULL)&&(aux1->prioridade < novo->prioridade))
+    {
+        aux = aux1;
+        aux1 = aux1->prox;
+    }
+    while((aux1!=NULL)&&(aux1->periodo < novo->periodo))
+    {
+        aux = aux1;
+        aux1 = aux1->prox;
+    }
+    while((aux1!=NULL)&&(aux1->codigo < novo->codigo))
     {
         aux = aux1;
         aux1 = aux1->prox;
