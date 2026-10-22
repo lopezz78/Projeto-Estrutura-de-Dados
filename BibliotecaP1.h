@@ -1,11 +1,17 @@
 #ifndef BibliotecaP1_H_INCLUDED
 #define BibliotecaP1_H_INCLUDED
 
+#include <stdio.h>
+#include <stdlib.h>
+#include "BibliotecaP1.h"
+#include <locale.h>
+#include <string.h>
+
 typedef struct no
 {
     int codigo;
-    char codigo_equipamento[6];
-    char nome[20];
+    char codigo_equipamento[7];
+    char nome[21];
     int prioridade;
     int periodo;
     struct no *prox;
@@ -23,7 +29,7 @@ Lista* InicializaLista()
 
 Lista* CriaLista()
 {
-    Lista*aux;
+    Lista *aux;
     aux = (Lista*)malloc(sizeof(Lista));
     aux->inicio=NULL;
     return aux;
@@ -121,14 +127,13 @@ void imprimeLista(Lista* L)
     }
     printf("\n");
 }
-/*int codigo;
+int codigo;
     char codigo_equipamento[6];
     char nome[20];
     int prioridade;
     int periodo;
 
-    Colocar as informações pra imprimir.
-    */
+
 void imprimeSolicitacao(Lista *L, int codigo)
 {
 
@@ -169,5 +174,20 @@ void alteraprioridade(Lista *L, int codigo)
             //aux->periodo=periodo;
 
         }
+}
+
+Lista* LiberaLista(Lista *L){
+
+    No *apag;
+
+    while(L->inicio!=NULL)
+    {
+        apag = L->inicio;
+        L->inicio = L->inicio->prox;
+        free(apag);
+    }
+    free(L->inicio);
+    return NULL;
+
 }
 #endif // BibliotecaP1_H_INCLUDED
