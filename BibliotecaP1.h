@@ -201,4 +201,40 @@ Lista* LiberaLista(Lista *L){
     return NULL;
 
 }
+
+No * auxOrdenaPrioridade(No*antigo, No*info)
+{
+     No *novo = (No*)malloc(sizeof(No));
+    No *aux = NULL, *aux1 = antigo;
+
+    novo = info;
+    novo->prox = NULL;
+
+    while((aux1!=NULL)&&(aux1->prioridade < novo->prioridade)&&(aux1->periodo < novo->periodo)&&(aux1->codigo < novo->codigo))
+    {
+        aux = aux1;
+        aux1 = aux1->prox;
+    }
+    if(aux == NULL)
+    {
+        novo->prox = antigo;
+        return novo;
+    }
+    novo->prox = aux1;
+    aux->prox=novo;
+    return antigo;
+}
+
+void OrdenaPrioridade(Lista*L)
+{
+    Lista*L2 = CriaLista();
+    No*aux = L->inicio;
+
+    while(aux!=NULL)
+    {
+          L2->inicio = auxOrdenaPrioridade(L2->inicio,aux);
+          aux = aux->prox;
+    }
+    ImprimeLista(L2);
+}
 #endif // BibliotecaP1_H_INCLUDED
