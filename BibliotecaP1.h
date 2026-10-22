@@ -215,15 +215,21 @@ No * auxOrdenaPrioridade(No*antigo, No*info)
         aux = aux1;
         aux1 = aux1->prox;
     }
-    while((aux1!=NULL)&&(aux1->periodo < novo->periodo))
+    if(aux1->periodo < novo->periodo)
     {
-        aux = aux1;
-        aux1 = aux1->prox;
+        while((aux1!=NULL)&&(aux1->periodo < novo->periodo))
+        {
+            aux = aux1;
+            aux1 = aux1->prox;
+        }
     }
-    while((aux1!=NULL)&&(aux1->codigo < novo->codigo))
+    if(aux1->codigo < novo->codigo)
     {
-        aux = aux1;
-        aux1 = aux1->prox;
+        while((aux1!=NULL)&&(aux1->codigo < novo->codigo))
+        {
+            aux = aux1;
+            aux1 = aux1->prox;
+        }
     }
     if(aux == NULL)
     {
