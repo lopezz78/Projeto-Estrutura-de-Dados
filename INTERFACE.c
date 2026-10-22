@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include "BibliotecaP1.h"
 #include <locale.h>
+#include <string.h>
 
 void limpaBuffer(void) {
     int c;
@@ -182,6 +182,28 @@ int main(){
 
     } while (!valido);
 
+    valido = 0;
+
+    do{
+            printf("Digite o nome do equipamento: \n\n");
+        if (fgets(entrada, sizeof(entrada), stdin) != NULL) {
+
+            if (strlen(entrada) <= 21) {
+
+                    valido = 1;
+                    strcpy(nomeEquipamento, entrada);
+                } else{
+                    printf("Erro! O numero de caracteres maximo eh 20.\n\n");
+                }
+
+                } else{
+
+            printf("Erro na leitura! Tente novamente.\n\n");
+
+        }
+
+    }while(!valido);
+
 
         prioridade = setPrioridade();
 
@@ -193,7 +215,7 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
 //printf("Prioridade inserida com sucesso %d \n", prioridade);
 //printf("Periodo inserido com sucesso %d \n", periodo);
 
-    //InsereSolicitacao(L, codigoSolicitacao, codigoEquipamento, nomeEquipamento, prioridade, periodo);
+    InsereSolicitacao(L, codigoSolicitacao, codigoEquipamento, nomeEquipamento, prioridade, periodo);
 
                 break;
 
@@ -243,6 +265,8 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
 
                 printf("\n--- TODAS AS SOLICITACOES ---\n");
 
+                imprimeSolicitacao(L, codigoSolicitacao);
+
                 break;
 
         case 0:
@@ -282,7 +306,6 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
     } while (1); // codigo funciona ate exit(0)
 
 }
-
 
 
 
