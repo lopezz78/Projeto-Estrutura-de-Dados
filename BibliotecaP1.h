@@ -235,6 +235,6 @@ void OrdenaPrioridade(Lista*L)
           L2->inicio = auxOrdenaPrioridade(L2->inicio,aux);
           aux = aux->prox;
     }
-    ImprimeLista(L2);
+    imprimeLista(L2);
 }
 #endif // BibliotecaP1_H_INCLUDED
