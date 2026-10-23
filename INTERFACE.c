@@ -51,7 +51,7 @@ int setPrioridade(){
 
     int prior;
         do{
-            printf("\nPrioridades:\n");
+            printf("Prioridades:\n");
             printf("1 - Alta\n");
             printf("2 - Média\n");
             printf("3 - Baixa\n");
@@ -102,7 +102,7 @@ int main(){
     int prioridade;
     int periodo;
 
-    char codigoEquipamento[7];
+    char codigoEquipamento[8];
     char nomeEquipamento[21];
 
     char entrada[30];
@@ -152,8 +152,10 @@ int main(){
 
         if (fgets(entrada, sizeof(entrada), stdin) != NULL) {
 
+            entrada[strcspn(entrada, "\n")] = '\0';
+
             //strlen nao considera \0 na contagem! Por isso verificacao eh possivel
-            if (strlen(entrada) == 7) {
+            if (strlen(entrada) == 6) {
 
                 // Verifica se os índices 0, 1 e 2 são letras
                 int letrasValidas = ehLetra(entrada[0]) && ehLetra(entrada[1]) && ehLetra(entrada[2]);
@@ -185,8 +187,10 @@ int main(){
     valido = 0;
 
     do{
-            printf("Digite o nome do equipamento: \n\n");
+            printf("Digite o nome do equipamento:");
         if (fgets(entrada, sizeof(entrada), stdin) != NULL) {
+
+            entrada[strcspn(entrada, "\n")] = '\0';
 
             if (strlen(entrada) <= 21) {
 
@@ -236,6 +240,7 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
                 printf("\n--- CONSULTAR SOLICITAÇÃO ---\n");
 
                 codigoSolicitacao = setCodSolicitacao();
+                imprimeSolicitacao(L,codigoSolicitacao);
 
                 break;
 
@@ -265,7 +270,7 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
 
                 printf("\n--- TODAS AS SOLICITACOES ---\n");
 
-                imprimeSolicitacao(L, codigoSolicitacao);
+                imprimeLista (L);
 
                 break;
 
@@ -306,6 +311,5 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
     } while (1); // codigo funciona ate exit(0)
 
 }
-
 
 
