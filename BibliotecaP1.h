@@ -208,10 +208,14 @@ Lista* LiberaLista(Lista *L){
 
 No * auxOrdenaPrioridade(No*antigo, No*info)
 {
-     No *novo = (No*)malloc(sizeof(No));
+    No *novo = (No*)malloc(sizeof(No));
     No *aux = NULL, *aux1 = antigo;
 
-    novo = info;
+    novo->codigo = cod;
+    strcpy(novo->codigo_equipamento, codequip);
+    strcpy(novo->nome, name);
+    novo->prioridade = prior;
+    novo->periodo = per;
     novo->prox = NULL;
 
     while((aux1!=NULL)&&(aux1->prioridade < novo->prioridade)&&(aux1->periodo < novo->periodo)&&(aux1->codigo < novo->codigo))
