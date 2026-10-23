@@ -119,28 +119,28 @@ void RemoveSolicitacao(Lista*L, int cod)
 void imprimeLista(Lista* L)
 {
     No *aux;
-    printf("\n\t\t");
-    int equipa=1;
 
-    for (aux = L->inicio; aux!=NULL; aux = aux->prox){
-        printf("\n\t\t");
-        printf("Equipamento %d:",equipa);
-        printf("\n");
-        printf("Nome : %s",aux->nome);
-        printf("codigo: %d",aux->codigo);
-        printf("\n");
-        printf("codigo_equipamento: %s",aux->codigo_equipamento);
-        printf("\n");
-        printf("prioridade: %d",aux->prioridade);
-        printf("\n");
-        printf("periodo: %d",aux->periodo);
-        printf("\n");
-        printf("\n");
-        printf("\n");
-        equipa++;
-
-
+    if (L->inicio == NULL)
+    {
+        printf("\nNenhuma solicitacao cadastrada.\n");
+        return;
     }
+
+    printf("\n%-8s | %-20s | %-12s | %-10s | %-8s\n",
+           "Codigo", "Nome", "Equipamento", "Prioridade", "Periodo");
+
+    printf("---------+----------------------+--------------+------------+---------\n");
+
+    for (aux = L->inicio; aux != NULL; aux = aux->prox)
+    {
+        printf("%-8d | %-20s | %-12s | %-10d | %-8d\n",
+               aux->codigo,
+               aux->nome,
+               aux->codigo_equipamento,
+               aux->prioridade,
+               aux->periodo);
+    }
+
     printf("\n");
 }
 
@@ -158,9 +158,13 @@ void imprimeSolicitacao(Lista *L, int codigo)
         else
         {
             printf("Codigo: %i/n", aux->codigo);
-            printf("Equipamento: %c/n", aux->codigo_equipamento);
+            printf("\n");
+            printf(" Equipamento: %c/n", aux->codigo_equipamento);
+            printf("\n");
             printf("Nome: %s/n", aux->nome);
+            printf("\n");
             printf("Prioridade: %i/n", aux->prioridade);
+            printf("\n");
             printf("Periodo: %i/n", aux->periodo);
 
         }
@@ -207,34 +211,13 @@ No * auxOrdenaPrioridade(No*antigo, No*info)
      No *novo = (No*)malloc(sizeof(No));
     No *aux = NULL, *aux1 = antigo;
 
-     novo->codigo = cod;
-    strcpy(novo->codigo_equipamento, codequip);
-    strcpy(novo->nome, name);
-    novo->prioridade = prior;
-    novo->periodo = per;
+    novo = info;
     novo->prox = NULL;
 
-
-    while((aux1!=NULL)&&(aux1->prioridade < novo->prioridade))
+    while((aux1!=NULL)&&(aux1->prioridade < novo->prioridade)&&(aux1->periodo < novo->periodo)&&(aux1->codigo < novo->codigo))
     {
         aux = aux1;
         aux1 = aux1->prox;
-    }
-    if(aux1->periodo < novo->periodo)
-    {
-        while((aux1!=NULL)&&(aux1->periodo < novo->periodo))
-        {
-            aux = aux1;
-            aux1 = aux1->prox;
-        }
-    }
-    if(aux1->codigo < novo->codigo)
-    {
-        while((aux1!=NULL)&&(aux1->codigo < novo->codigo))
-        {
-            aux = aux1;
-            aux1 = aux1->prox;
-        }
     }
     if(aux == NULL)
     {
