@@ -218,6 +218,10 @@ No * auxOrdenaPrioridade(No*antigo, No*info)
     novo->periodo = per;
     novo->prox = NULL;
 
+    if(novo == NULL)
+    {
+        return antigo;
+    }
     while((aux1!=NULL)&&(aux1->prioridade < novo->prioridade))
     {
         aux = aux1;
