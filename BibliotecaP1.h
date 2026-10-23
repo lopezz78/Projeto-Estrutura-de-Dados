@@ -157,15 +157,15 @@ void imprimeSolicitacao(Lista *L, int codigo)
         }
         else
         {
-            printf("Codigo: %i/n", aux->codigo);
+            printf("Codigo: %i", aux->codigo);
             printf("\n");
-            printf(" Equipamento: %c/n", aux->codigo_equipamento);
+            printf("Equipamento: %s", aux->codigo_equipamento);
             printf("\n");
-            printf("Nome: %s/n", aux->nome);
+            printf("Nome: %s", aux->nome);
             printf("\n");
-            printf("Prioridade: %i/n", aux->prioridade);
+            printf("Prioridade: %i", aux->prioridade);
             printf("\n");
-            printf("Periodo: %i/n", aux->periodo);
+            printf("Periodo: %i", aux->periodo);
 
         }
 
