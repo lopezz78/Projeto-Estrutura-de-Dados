@@ -262,8 +262,7 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
 
                 printf("\n--- ORDEM DE REALIZACAO DA MANUTENCAO ---\n");
 
-
-
+                OrdenaPrioridade(L);
                 break;
 
         case 6:

@@ -211,11 +211,11 @@ No * auxOrdenaPrioridade(No*antigo, No*info)
     No *novo = (No*)malloc(sizeof(No));
     No *aux = NULL, *aux1 = antigo;
 
-    novo->codigo = cod;
-    strcpy(novo->codigo_equipamento, codequip);
-    strcpy(novo->nome, name);
-    novo->prioridade = prior;
-    novo->periodo = per;
+    novo->codigo = info->codigo;
+    strcpy(novo->codigo_equipamento, info->codigo_equipamento);
+    strcpy(novo->nome, info->nome);
+    novo->prioridade = info->prioridade;
+    novo->periodo = info->periodo;
     novo->prox = NULL;
 
     while((aux1!=NULL)&&(aux1->prioridade < novo->prioridade))
@@ -228,11 +228,11 @@ No * auxOrdenaPrioridade(No*antigo, No*info)
         aux = aux1;
         aux1 = aux1->prox;
     }
-    while((aux1!=NULL)&&(aux1->codigo < novo->codigo))
-    {
-        aux = aux1;
-        aux1 = aux1->prox;
-    }
+    // while((aux1!=NULL)&&(aux1->codigo < novo->codigo))
+    // {
+    //     aux = aux1;
+    //     aux1 = aux1->prox;
+    // }
     if(aux == NULL)
     {
         novo->prox = antigo;
@@ -254,5 +254,6 @@ void OrdenaPrioridade(Lista*L)
           aux = aux->prox;
     }
     imprimeLista(L2);
+    LiberaLista(L2);
 }
 #endif // BibliotecaP1_H_INCLUDED
