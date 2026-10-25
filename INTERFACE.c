@@ -19,7 +19,7 @@ int ehNumero(char c) {
     return (c >= '0' && c <= '9');
 }
 
-int setCodSolicitacao(){
+int setCodSolicitacao(Lista *L){
 
         int cod;
 
@@ -32,7 +32,12 @@ int setCodSolicitacao(){
 
                 if (cod >= 1000 && cod <= 9999) {
 
+
+                    if(VerificaCodigo(L, cod)== 0){
                     return cod;
+                    } else{
+                        printf("Código já cadastrado! Utilize outro.\n ");
+                    }
 
                 } else {
                     printf("Erro! O código deve estar entre 1000 e 9999.\n");
@@ -47,27 +52,67 @@ int setCodSolicitacao(){
 
 }
 
-int setPrioridade(){
+int setPrioridade(int dias){
 
     int prior;
-        do{
-            printf("Prioridades:\n");
-            printf("1 - Alta\n");
-            printf("2 - Média\n");
-            printf("3 - Baixa\n");
 
-            printf("Prioridade: ");
-            scanf("%d", &prior);
+        if(dias >= 1 && dias <= 7){
+            do{
+                printf("Escolha a prioridade (entre 1 e 3):\n");
+                printf("1. Alta\n");
+                printf("2. Média\n");
+                printf("3. Baixa\n");
+                printf("==> ");
 
-            if(prior == 1 || prior == 2 || prior == 3 ){
-                return prior;
-            } else{
-                printf("Erro! numero invalido.");
-            }
+                scanf("%d", &prior);
 
-            limpaBuffer();
+                limpaBuffer();
 
-        }while(1);
+                if(prior == 1 || prior == 2 || prior == 3){
+                    return prior;
+                }
+
+                printf("Opção inválida.\n");
+
+            }while(1);
+        }
+        if(dias >= 8 && dias <= 15){
+            do{
+                printf("Escolha a prioridade(entre 2 e 3):\n");
+                printf("2. Média\n");
+                printf("3. Baixa\n");
+                printf("==> ");
+
+                scanf("%d", &prior);
+
+                limpaBuffer();
+
+                if( prior == 2 || prior == 3){
+                    return prior;
+                }
+
+                printf("Opção inválida.\n");
+
+            }while(1);
+        } else{
+            do{
+                printf("Escolha a prioridade:\n");
+                printf("3. Baixa\n");
+                printf("(Outras estão inválidas pelo período escolhido)\n");
+                printf("==> ");
+
+                scanf("%d", &prior);
+
+                limpaBuffer();
+
+                if( prior == 3){
+                    return prior;
+                }
+                printf("Opção inválida.\n");
+
+            }while(1);
+        }
+
 
 }
 
@@ -75,14 +120,14 @@ int setPeriodo(){
 
     int per;
         do{
-            printf("Período em dias: ");
+            printf("Período em dias (entre 1 e 20 dias): ");
             scanf("%d", &per);
 
             if(per >= 1 && per<= 20 ){
                 return per;
 
             } else{
-                printf("Erro! numero invalido.");
+                printf("Erro! input invalido.\n\n");
             }
 
             limpaBuffer();
@@ -143,7 +188,7 @@ int main(){
         case 1:
             printf("\n--- INSERIR SOLICITACAO ---\n");
 
-            codigoSolicitacao = setCodSolicitacao();
+            codigoSolicitacao = setCodSolicitacao(L);
 
     valido = 0;
 
@@ -166,9 +211,14 @@ int main(){
                 // retorna 1 (verdadeiro) se as variaves foram aprovadas
                 if (letrasValidas && numerosValidos) {
 
-                    // Copia o código aprovado para a string oficial
-                    strcpy(codigoEquipamento, entrada);
-                    valido = 1;
+                    if (VerificaCodigoEquipamento(L, entrada) == 0)
+                    {
+                        strcpy(codigoEquipamento, entrada);
+                        valido = 1;
+                    } else{
+                        printf("Código já cadastrado! Utilize outro.\n");
+
+                    }
 
                 } else {
                     printf("Erro! O formato correto é 3 LETRAS seguidas de 3 NÚMEROS.\n\n");
@@ -187,7 +237,7 @@ int main(){
     valido = 0;
 
     do{
-            printf("Digite o nome do equipamento:");
+            printf("Digite o nome do equipamento: ");
         if (fgets(entrada, sizeof(entrada), stdin) != NULL) {
 
             entrada[strcspn(entrada, "\n")] = '\0';
@@ -197,7 +247,7 @@ int main(){
                     valido = 1;
                     strcpy(nomeEquipamento, entrada);
                 } else{
-                    printf("Erro! O numero de caracteres maximo eh 20.\n\n");
+                    printf("Erro! O numero de caracteres máximo é 20.\n\n");
                 }
 
                 } else{
@@ -209,9 +259,11 @@ int main(){
     }while(!valido);
 
 
-        prioridade = setPrioridade();
-
         periodo = setPeriodo();
+
+        prioridade = setPrioridade(periodo);
+
+
 
 printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
 //printf("Código armazenado com sucesso: %s\n", codigoEquipamento);
@@ -230,7 +282,34 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
 
                 printf("\n--- REMOVER SOLICITAÇÃO ---\n");
 
-                codigoSolicitacao = setCodSolicitacao();
+        valido = 0;
+                do {
+            printf("Código da solicitação (4 dígitos entre 1000 e 9999): ");
+
+            // Se o scanf conseguir ler exatamente 1 número inteiro + armazena na variavel
+            if (scanf("%d", &codigoSolicitacao) == 1) {
+                limpaBuffer(); // Limpa o '\n' (Enter) deixado no teclado para a proxima digitacao
+
+                if (codigoSolicitacao >= 1000 && codigoSolicitacao <= 9999) {
+                    if(VerificaCodigo(L, codigoSolicitacao)== 1){
+                        valido = 1;
+                    } else{
+                        printf("Solicitação não encontrada!\n");
+
+                    }
+
+                } else {
+                    printf("Erro! O código deve estar entre 1000 e 9999.\n");
+                }
+            } else {
+                // Se o usuário digitou letras, o scanf falha e cai AQUI!
+                printf("Erro! Digite apenas números (sem letras ou símbolos).\n");
+                limpaBuffer(); // OBRIGATÓRIO: Descarta a letra do buffer para não travar o loop
+            }
+
+        } while (!valido);
+
+                RemoveSolicitacao(L, codigoSolicitacao);
 
                 break;
 
@@ -239,7 +318,33 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
 
                 printf("\n--- CONSULTAR SOLICITAÇÃO ---\n");
 
-                codigoSolicitacao = setCodSolicitacao();
+        valido = 0;
+                do {
+            printf("Código da solicitação (4 dígitos entre 1000 e 9999): ");
+
+            // Se o scanf conseguir ler exatamente 1 número inteiro + armazena na variavel
+            if (scanf("%d", &codigoSolicitacao) == 1) {
+                limpaBuffer(); // Limpa o '\n' (Enter) deixado no teclado para a proxima digitacao
+
+                if (codigoSolicitacao >= 1000 && codigoSolicitacao <= 9999) {
+                    if(VerificaCodigo(L, codigoSolicitacao)== 1){
+                        valido = 1;
+                    } else{
+                        printf("Solicitação não encontrada!\n");
+
+                    }
+
+                } else {
+                    printf("Erro! O código deve estar entre 1000 e 9999.\n");
+                }
+            } else {
+                // Se o usuário digitou letras, o scanf falha e cai AQUI!
+                printf("Erro! Digite apenas números (sem letras ou símbolos).\n");
+                limpaBuffer(); // OBRIGATÓRIO: Descarta a letra do buffer para não travar o loop
+            }
+
+        } while (!valido);
+
                 imprimeSolicitacao(L,codigoSolicitacao);
 
                 break;
@@ -248,11 +353,39 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
 
                 printf("\n--- ALTERAR SOLICITACAO ---\n");
 
-                codigoSolicitacao = setCodSolicitacao();
+        valido = 0;
+                do {
+            printf("Código da solicitação (4 dígitos entre 1000 e 9999): ");
 
-                prioridade = setPrioridade();
+            // Se o scanf conseguir ler exatamente 1 número inteiro + armazena na variavel
+            if (scanf("%d", &codigoSolicitacao) == 1) {
+                limpaBuffer(); // Limpa o '\n' (Enter) deixado no teclado para a proxima digitacao
+
+                if (codigoSolicitacao >= 1000 && codigoSolicitacao <= 9999) {
+                    if(VerificaCodigo(L, codigoSolicitacao)== 1){
+                        valido = 1;
+                    } else{
+                        printf("Solicitação não encontrada!\n");
+
+                    }
+
+                } else {
+                    printf("Erro! O código deve estar entre 1000 e 9999.\n");
+                }
+            } else {
+                // Se o usuário digitou letras, o scanf falha e cai AQUI!
+                printf("Erro! Digite apenas números (sem letras ou símbolos).\n");
+                limpaBuffer(); // OBRIGATÓRIO: Descarta a letra do buffer para não travar o loop
+            }
+
+        } while (!valido);
 
                 periodo = setPeriodo();
+
+                prioridade = setPrioridade(periodo);
+
+                alteraprioridade(L, codigoSolicitacao, periodo, prioridade);
+
 
                 break;
 
@@ -310,5 +443,4 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
     } while (1); // codigo funciona ate exit(0)
 
 }
-
 
