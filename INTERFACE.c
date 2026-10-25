@@ -57,7 +57,7 @@ int setPrioridade(){
 
     int prior;
         do{
-            printf("Escolha a prioridade (entre 1 e 3):\n");
+            printf("\nEscolha a prioridade (entre 1 e 3):\n");
             printf("1 - Alta\n");
             printf("2 - Média\n");
             printf("3 - Baixa\n");
@@ -89,7 +89,7 @@ int setPeriodo(int prior)
 
     do {
         if(prior == 1){
-            printf("Periodo em dias (entre 1 e 7 dias): ");
+            printf("\nPeriodo de dias para manutenção(entre 1 e 7 dias): ");
             printf("\n==> ");
 
             if (scanf("%d", &per) == 1) {
@@ -106,7 +106,7 @@ int setPeriodo(int prior)
             }
 
         if(prior == 2){
-            printf("Periodo em dias (entre 1 e 15 dias): ");
+            printf("\nPeriodo de dias para manutenção(entre 1 e 15 dias): ");
             printf("\n==> ");
 
             if (scanf("%d", &per) == 1) {
@@ -122,7 +122,7 @@ int setPeriodo(int prior)
         printf("Erro! Input invalido.\n\n");
             }
         if(prior == 3){
-            printf("\nPeriodo em dias (entre 1 e 20 dias): ");
+            printf("\nPeriodo de dias para manutenção(entre 1 e 20 dias): ");
             printf("\n==> ");
 
             if (scanf("%d", &per) == 1) {
@@ -243,31 +243,34 @@ int main(){
 
     } while (!valido);
 
-    valido = 0;
+valido = 0;
 
-    do{
-            printf("\nDigite o nome do equipamento: ");
-            printf("\n==> ");
-        if (fgets(entrada, sizeof(entrada), stdin) != NULL) {
+do {
+    printf("\nDigite o nome do equipamento: ");
+    printf("\n==> ");
 
+    if (fgets(entrada, sizeof(entrada), stdin) != NULL) {
+
+        if (strchr(entrada, '\n') != NULL) {
             entrada[strcspn(entrada, "\n")] = '\0';
-
-            if (strlen(entrada) <= 20) {
-
-                    valido = 1;
-                    strcpy(nomeEquipamento, entrada);
-                } else{
-                    printf("Erro! O numero de caracteres máximo é 20.\n\n");
-                }
-
-                } else{
-
-            printf("Erro na leitura! Tente novamente.\n\n");
-
         }
-            printf("\n(Aperte Enter novamente)\n\n");
+        else {
             limpaBuffer();
-    }while(!valido);
+        }
+
+        if (strlen(entrada) >= 1 && strlen(entrada) <= 20) {
+            valido = 1;
+            strcpy(nomeEquipamento, entrada);
+        }
+        else {
+            printf("Erro! O numero de caracteres maximo e 20.\n\n");
+        }
+    }
+    else {
+        printf("Erro na leitura!\n\n");
+    }
+
+} while (!valido);
 
         prioridade = setPrioridade();
 
@@ -276,14 +279,11 @@ int main(){
 
 
 
-printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
-//printf("Código armazenado com sucesso: %s\n", codigoEquipamento);
-//printf("Nome inserido com sucesso: %s\n", nomeEquipamento);
-//printf("Prioridade inserida com sucesso %d \n", prioridade);
-//printf("Periodo inserido com sucesso %d \n", periodo);
+        printf("\nCódigo inserido com sucesso: %d\n\n", codigoSolicitacao);
 
-    InsereSolicitacao(L, codigoSolicitacao, codigoEquipamento, nomeEquipamento, prioridade, periodo);
-    system("pause");
+
+        InsereSolicitacao(L, codigoSolicitacao, codigoEquipamento, nomeEquipamento, prioridade, periodo);
+        system("pause");
 
                 break;
 
@@ -345,9 +345,11 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
             system("pause");
             break;
         }
+
+
         valido = 0;
                 do {
-            printf("\nCódigo da solicitação (4 dígitos entre 1000 e 9999): ");
+            printf("\nEscolha pelo código da solicitação (4 dígitos entre 1000 e 9999): ");
 
             // Se o scanf conseguir ler exatamente 1 número inteiro + armazena na variavel
             if (scanf("%d", &codigoSolicitacao) == 1) {
@@ -365,7 +367,7 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
                     printf("Erro! O código deve estar entre 1000 e 9999.\n");
                 }
             } else {
-                // Se o usuário digitou letras, o scanf falha e cai AQUI!
+                // Se o usuário digitou letras, o scanf falha e cai aqui
                 printf("Erro! Digite apenas números (sem letras ou símbolos).\n");
                 limpaBuffer(); // OBRIGATÓRIO: Descarta a letra do buffer para não travar o loop
             }
@@ -472,7 +474,6 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
                     printf("\nFinalizando o programa...\n");
 
                     LiberaLista(L);
-                    /LiberaLista();/ //Lista de impressao
                     printf("Programa finalizado.\n");
                     exit(0);
                 }
@@ -488,3 +489,4 @@ printf("\nCódigo inserido com sucesso: %d\n", codigoSolicitacao);
     } while (1); // codigo funciona ate exit(0)
 
 }
+
