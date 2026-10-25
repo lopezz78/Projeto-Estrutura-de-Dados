@@ -93,7 +93,7 @@ int VerificaCodigoEquipamento(Lista *L, char entrada[])
 
 No* auxInsereSolicitacao(No*antigo, int cod, char codequip[], char name[], int prior, int per)
 {
-    No novo = (No)malloc(sizeof(No));
+    No *novo = (No*)malloc(sizeof(No));
     No *aux = NULL, *aux1 = antigo;
 
     novo->codigo = cod;
@@ -241,7 +241,7 @@ Lista* LiberaLista(Lista *L){
 
 No * auxOrdenaPrioridade(No*antigo, No*info)
 {
-    No novo = (No)malloc(sizeof(No));
+    No *novo = (No*)malloc(sizeof(No));
     No *aux = NULL, *aux1 = antigo;
 
     novo->codigo = info->codigo;
