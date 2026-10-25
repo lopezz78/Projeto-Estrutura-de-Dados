@@ -53,8 +53,42 @@ No* BuscaSolicitacao(Lista*L, int cod)
         {
             return aux;
         }
+        aux = aux->prox;
     }
     return NULL;
+}
+
+int VerificaCodigo(Lista *L, int cod)
+{
+    No *aux = L->inicio;
+
+    while (aux != NULL)
+    {
+        if (aux->codigo == cod)
+        {
+            return 1;
+        }
+
+        aux = aux->prox;
+    }
+
+    return 0;
+}
+
+int VerificaCodigoEquipamento(Lista *L, char entrada[])
+{
+    No *aux = L->inicio;
+
+    while (aux != NULL)
+    {
+        if (strcmp(aux->codigo_equipamento, entrada) == 0)
+        {
+            return 1;
+        }
+
+        aux = aux->prox;
+    }
+    return 0;
 }
 
 No* auxInsereSolicitacao(No*antigo, int cod, char codequip[], char name[], int prior, int per)
@@ -89,10 +123,11 @@ void InsereSolicitacao(Lista*L, int cod, char codequip[], char name[], int prior
     L->inicio = auxInsereSolicitacao(L->inicio, cod, codequip, name, prior, per);
 }
 
-No * auxRemoveSolicitacao(No*apag, int cod)
+No* auxRemoveSolicitacao(No*apag, int cod)
 {
     No*aux = NULL;
     No*aux1 = apag;
+
 
      while((aux1!=NULL)&&(aux1->codigo < cod))
     {
@@ -157,7 +192,7 @@ void imprimeSolicitacao(Lista *L, int codigo)
         }
         else
         {
-            printf("Codigo: %i", aux->codigo);
+
             printf("\n");
             printf("Equipamento: %s", aux->codigo_equipamento);
             printf("\n");
@@ -171,10 +206,8 @@ void imprimeSolicitacao(Lista *L, int codigo)
 
 }
 
-void alteraprioridade(Lista *L, int codigo)
+void alteraprioridade(Lista *L, int codigo, int periodo, int prioridade)
 {
-    int prioridade;
-    int perido;
 
     //Verificacao de prioridade e periodo
 
@@ -186,7 +219,7 @@ void alteraprioridade(Lista *L, int codigo)
         else
         {
             aux->prioridade=prioridade;
-            //aux->periodo=periodo;
+            aux->periodo=periodo;
 
         }
 }
@@ -201,7 +234,7 @@ Lista* LiberaLista(Lista *L){
         L->inicio = L->inicio->prox;
         free(apag);
     }
-    free(L->inicio);
+    free(L);
     return NULL;
 
 }
@@ -233,7 +266,7 @@ No * auxOrdenaPrioridade(No*antigo, No*info)
         aux = aux1;
         aux1 = aux1->prox;
     }
-    
+
     if(aux == NULL)
     {
         novo->prox = antigo;
