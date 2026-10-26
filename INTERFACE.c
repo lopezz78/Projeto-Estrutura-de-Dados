@@ -31,6 +31,10 @@ int setCodSolicitacao(Lista *L){
             if (scanf("%d", &cod) == 1) {
                 limpaBuffer(); // Limpa o '\n' deixado no teclado para a proxima digitacao
 
+                if(cod == 0){
+                    return cod;
+                }
+
                 if (cod >= 1000 && cod <= 9999) {
 
 
@@ -151,6 +155,7 @@ int main(){
     int codigoSolicitacao;
     int prioridade;
     int periodo;
+    int cancelou;
 
     char codigoEquipamento[8];
     char nomeEquipamento[21];
@@ -180,8 +185,10 @@ int main(){
         printf("6 - Exibir todas as solicitações\n");
         printf("0 - Finalizar\n");
         printf("=============================================\n");
+        printf("\n(Se deseja sair da função APENAS ao entrar, digite '0')\n");
 
-        printf("Escolha uma opção: ");
+
+        printf("\nEscolha uma opção: ");
 
 
         opcao = -9999; // valor que caia novamente no default apos primeiro uso de uma funcao
@@ -198,7 +205,9 @@ int main(){
             printf("\n--- INSERIR SOLICITACAO ---\n");
 
             codigoSolicitacao = setCodSolicitacao(L);
-
+            if(codigoSolicitacao == 0){
+                break;
+            }
     valido = 0;
 
                  do {
@@ -278,11 +287,27 @@ do {
 
 
 
+        printf("\n--- SOLICITACAO ---\n");
+        printf("\nCódigo de solicitação: %d\n", codigoSolicitacao);
+        printf("Equipamento: %s", codigoEquipamento);
+        printf("\n");
+        printf("Nome: %s", nomeEquipamento);
+        printf("\n");
+        printf("Prioridade: %i", prioridade);
+        printf("\n");
+        printf("Periodo: %i", periodo);
 
-        printf("\nCódigo inserido com sucesso: %d\n\n", codigoSolicitacao);
 
+        scanf("%d", &cancelou);
+        limpaBuffer();
+        if(cancelou == 0){
+            break;
+        }
 
         InsereSolicitacao(L, codigoSolicitacao, codigoEquipamento, nomeEquipamento, prioridade, periodo);
+        printf("\n");
+        printf("\n");
+        printf("Solicitação inserida com sucesso! ");
         system("pause");
 
                 break;
@@ -303,6 +328,7 @@ do {
         imprimeLista (L);
 
         valido = 0;
+        cancelou = 0;
                 do {
             printf("Escolha pelo código da solicitação (4 dígitos entre 1000 e 9999): ");
 
@@ -310,6 +336,10 @@ do {
             if (scanf("%d", &codigoSolicitacao) == 1) {
                 limpaBuffer(); // Limpa o '\n' (Enter) deixado no teclado para a proxima digitacao
 
+                if(codigoSolicitacao == 0){
+                    cancelou = 1;
+                break;
+            }
                 if (codigoSolicitacao >= 1000 && codigoSolicitacao <= 9999) {
                     if(VerificaCodigo(L, codigoSolicitacao)== 1){
                         valido = 1;
@@ -329,6 +359,10 @@ do {
 
         } while (!valido);
 
+        if (cancelou) {
+        break; // Sai do switch-case
+    }
+
                 RemoveSolicitacao(L, codigoSolicitacao);
                 printf("\nSolicitação removida com sucesso!\n\n");
                 system("pause");
@@ -346,7 +380,7 @@ do {
             break;
         }
 
-
+        cancelou = 0;
         valido = 0;
                 do {
             printf("\nEscolha pelo código da solicitação (4 dígitos entre 1000 e 9999): ");
@@ -354,7 +388,10 @@ do {
             // Se o scanf conseguir ler exatamente 1 número inteiro + armazena na variavel
             if (scanf("%d", &codigoSolicitacao) == 1) {
                 limpaBuffer(); // Limpa o '\n' (Enter) deixado no teclado para a proxima digitacao
-
+                if(codigoSolicitacao == 0){
+                    cancelou = 1;
+                break;
+            }
                 if (codigoSolicitacao >= 1000 && codigoSolicitacao <= 9999) {
                     if(VerificaCodigo(L, codigoSolicitacao)== 1){
                         valido = 1;
@@ -374,6 +411,10 @@ do {
 
         } while (!valido);
 
+                if (cancelou) {
+        break; // Sai do switch-case
+        }
+
                 imprimeSolicitacao(L,codigoSolicitacao);
                 printf("\n\n");
                 system("pause");
@@ -392,13 +433,20 @@ do {
 
         imprimeLista (L);
 
+        cancelou = 0;
         valido = 0;
+
                 do {
             printf("Código da solicitação do item que deseja alterar (4 dígitos entre 1000 e 9999): ");
 
             // Se o scanf conseguir ler exatamente 1 número inteiro + armazena na variavel
             if (scanf("%d", &codigoSolicitacao) == 1) {
                 limpaBuffer(); // Limpa o '\n' (Enter) deixado no teclado para a proxima digitacao
+
+                if(codigoSolicitacao == 0){
+                    cancelou = 1;
+                break;
+                }
 
                 if (codigoSolicitacao >= 1000 && codigoSolicitacao <= 9999) {
                     if(VerificaCodigo(L, codigoSolicitacao)== 1){
@@ -418,6 +466,10 @@ do {
             }
 
         } while (!valido);
+
+            if (cancelou) {
+                break; // Sai do switch-case
+            }
 
                 prioridade = setPrioridade();
 
