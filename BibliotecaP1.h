@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "BibliotecaP1.h"
 #include <locale.h>
 #include <string.h>
 
