@@ -185,7 +185,6 @@ int main(){
         printf("6 - Exibir todas as solicitações\n");
         printf("0 - Finalizar\n");
         printf("=============================================\n");
-        printf("\n(Se deseja sair da função APENAS ao entrar, digite '0')\n");
 
 
         printf("\nEscolha uma opção: ");
@@ -202,8 +201,9 @@ int main(){
     switch (opcao){
 
         case 1:
+            system("cls");
             printf("\n--- INSERIR SOLICITACAO ---\n");
-
+            printf("\n(Para voltar ao menu, digite '0')\n");
             codigoSolicitacao = setCodSolicitacao(L);
             if(codigoSolicitacao == 0){
                 break;
@@ -286,7 +286,7 @@ do {
         periodo = setPeriodo(prioridade);
 
 
-
+        system("cls");
         // Mostra as informacoes da solicitacao
 printf("\n--- SOLICITACAO ---\n");
 
@@ -325,6 +325,7 @@ do {
 if (strcmp(entrada, "0") == 0)
 {
     printf("\nSolicitacao cancelada! Voltando ao menu...\n");
+    system("pause");
     break;
 }
 
@@ -343,7 +344,7 @@ break;
 
 
         case 2:
-
+            system("cls");
                 printf("\n--- REMOVER SOLICITAÇÃO ---\n");
 
         if(VerificaLista(L) == 1){
@@ -352,6 +353,7 @@ break;
             system("pause");
             break;
         }
+        printf("\n(Para voltar ao menu, digite '0')\n");
         imprimeLista (L);
 
         valido = 0;
@@ -398,7 +400,7 @@ break;
 
         case 3:
 
-
+    system("cls");
                 printf("\n--- CONSULTAR SOLICITAÇÃO ---\n");
 
         if(VerificaLista(L) == 1){
@@ -406,6 +408,7 @@ break;
             system("pause");
             break;
         }
+        printf("\n(Para voltar ao menu, digite '0')\n");
 
         cancelou = 0;
         valido = 0;
@@ -433,7 +436,7 @@ break;
             } else {
                 // Se o usuário digitou letras, o scanf falha e cai aqui
                 printf("Erro! Digite apenas números (sem letras ou símbolos).\n");
-                limpaBuffer(); // OBRIGATÓRIO: Descarta a letra do buffer para não travar o loop
+                limpaBuffer();
             }
 
         } while (!valido);
@@ -449,7 +452,7 @@ break;
                 break;
 
         case 4:
-
+    system("cls");
                 printf("\n--- ALTERAR SOLICITACAO ---\n");
         if(VerificaLista(L) == 1){
             printf("\nNenhuma solicitação cadastrada.\n\n");
@@ -457,6 +460,7 @@ break;
             break;
 
         }
+        printf("\n(Para voltar ao menu, digite '0')\n");
 
         imprimeLista (L);
 
@@ -511,7 +515,7 @@ break;
 
 
         case 5:
-
+        system("cls");
                 printf("\n--- ORDEM DE REALIZACAO DA MANUTENCAO ---\n");
 
                 OrdenaPrioridade(L);
@@ -520,7 +524,7 @@ break;
                 break;
 
         case 6:
-
+        system("cls");
                 printf("\n--- TODAS AS SOLICITACOES ---\n");
 
                 imprimeLista (L);
@@ -541,8 +545,8 @@ break;
                 if ((resposta != 'S') && (resposta != 's') &&
                     (resposta != 'N') && (resposta != 'n'))
                 {
-                    printf("\n\n\t\t=> DIGITE SOMENTE S PARA SIM OU N PARA NÃO <=\n\n");
-                    limpaBuffer();
+                    printf("\n\n=> DIGITE SOMENTE S PARA SIM OU N PARA NÃO <=\n");
+
 
                 }
 
@@ -568,4 +572,3 @@ break;
     } while (1); // codigo funciona ate exit(0)
 
 }
-
