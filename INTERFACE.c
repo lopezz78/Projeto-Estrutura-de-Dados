@@ -287,30 +287,57 @@ do {
 
 
 
-        printf("\n--- SOLICITACAO ---\n");
-        printf("\nCódigo de solicitação: %d\n", codigoSolicitacao);
-        printf("Equipamento: %s", codigoEquipamento);
-        printf("\n");
-        printf("Nome: %s", nomeEquipamento);
-        printf("\n");
-        printf("Prioridade: %i", prioridade);
-        printf("\n");
-        printf("Periodo: %i", periodo);
+        // Mostra as informacoes da solicitacao
+printf("\n--- SOLICITACAO ---\n");
+
+printf("\nCodigo de solicitacao: %d\n", codigoSolicitacao);
+printf("Equipamento: %s\n", codigoEquipamento);
+printf("Nome: %s\n", nomeEquipamento);
+printf("Prioridade: %d\n", prioridade);
+printf("Periodo: %d\n", periodo);
 
 
-        scanf("%d", &cancelou);
-        limpaBuffer();
-        if(cancelou == 0){
-            break;
-        }
+// Confirmacao do cadastro
+do {
+    printf("\nDeseja realmente adicionar esta solicitacao?\n");
+    printf("Aperte ENTER para confirmar ou digite 0 para cancelar.\n");
+    printf("==> ");
 
-        InsereSolicitacao(L, codigoSolicitacao, codigoEquipamento, nomeEquipamento, prioridade, periodo);
-        printf("\n");
-        printf("\n");
-        printf("Solicitação inserida com sucesso! ");
-        system("pause");
+    if (fgets(entrada, sizeof(entrada), stdin) == NULL)
+    {
+        strcpy(entrada, "0");
+        break;
+    }
 
-                break;
+    entrada[strcspn(entrada, "\n")] = '\0';
+
+    if (strcmp(entrada, "0") == 0 || strlen(entrada) == 0)
+    {
+        break;
+    }
+
+    printf("\nOpcao invalida!\n");
+
+} while (1);
+
+
+// Verifica se o usuario cancelou
+if (strcmp(entrada, "0") == 0)
+{
+    printf("\nSolicitacao cancelada! Voltando ao menu...\n");
+    break;
+}
+
+
+// Insere a solicitacao na lista
+InsereSolicitacao(L, codigoSolicitacao, codigoEquipamento,
+                  nomeEquipamento, prioridade, periodo);
+
+printf("\nSolicitacao inserida com sucesso!\n");
+
+system("pause");
+
+break;
 
 
 
